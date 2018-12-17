@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../auth/shared/auth.service';
 
 @Component({
 selector: 'bwm-header',
@@ -7,5 +8,7 @@ styleUrls: ['./header.component.scss']
 })
 
 export class HeaderComponent {
+
+  constructor(private auth: AuthService) {}
 
 }

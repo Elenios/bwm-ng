@@ -1,13 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpXsrfTokenExtractor } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import * as jwt from 'jsonwebtoken';
+import * as moment from 'moment';
 import 'rxjs/Rx';
+
+class DecodedToken {
+  exp = 0;
+  username = '';
+}
 
 @Injectable()
 export class AuthService {
 
-  constructor(private http: HttpClient) {
+  private decodedToken;
 
+  constructor(private http: HttpClient) {
+    this.decodedToken = JSON.parse(localStorage.getItem('bwm_meta')) || new DecodedToken;
+  }
+
+  private saveToken(token: string): string {
+    this.decodedToken = jwt.decode(token);
+    localStorage.setItem('bwm_auth', token);
+    localStorage.setItem('bwm_meta', JSON.stringify(this.decodedToken));
+    return token;
+  }
+
+  private getExpiration() {
+    return moment.unix(this.decodedToken.exp);
   }
 
   public register(userData: any): Observable<any> {
@@ -19,10 +39,10 @@ export class AuthService {
     (token: string) => this.saveToken(token));
   }
 
-  private saveToken(token: string): string {
-    localStorage.setItem('bwm_auth', token);
-    return token;
+  public isAuthenticated(): boolean {
+    return moment().isBefore(this.getExpiration());
   }
+
 }
 
 
