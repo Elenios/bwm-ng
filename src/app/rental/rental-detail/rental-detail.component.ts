@@ -13,7 +13,7 @@ export class RentalDetailComponent implements OnInit {
   rental: Rental;
 
   constructor(
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private rentalService: RentalService
     ) { }
 
@@ -21,7 +21,7 @@ export class RentalDetailComponent implements OnInit {
     this.route.params.subscribe(
       (params) => {
         this.getRental(params['rentalId']);
-      })
+      });
   }
 
   getRental(rentalId: string) {
