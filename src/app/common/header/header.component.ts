@@ -10,7 +10,7 @@ styleUrls: ['./header.component.scss']
 
 export class HeaderComponent {
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(public auth: AuthService, private router: Router) {}
 
   logout() {
     this.auth.logout();

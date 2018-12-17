@@ -22,7 +22,6 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.initForm();
     this.route.params.subscribe((params) => {
-      console.log(params);
       if (params['registered'] === 'true') {
         this.notifyMessage = 'You have registered, please log in!';
       }
