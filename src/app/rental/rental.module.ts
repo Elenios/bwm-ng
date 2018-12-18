@@ -13,8 +13,9 @@ import { RentalDetailComponent } from './rental-detail/rental-detail.component';
 import { RentalDetailBookingComponent } from './rental-detail/rental-detail-booking/rental-detail-booking.component';
 
 import { UppercasePipe } from '../common/pipes/uppercase.pipe';
-
 import { RentalService } from './shared/rental.service';
+import { HelperService } from '../common/service/helper.service';
+
 import { AuthGuard } from '../auth/shared/auth.guard';
 
 const routes: Routes = [{
@@ -45,7 +46,8 @@ const routes: Routes = [{
     Daterangepicker
   ],
   providers: [
-    RentalService
+    RentalService,
+    HelperService
   ]
 })
 

@@ -1,4 +1,4 @@
-import { Rental } from '../../../rental/shared/rental.model';
+import { Rental } from '../../rental/shared/rental.model';
 
 export class Booking {
   _id: string;
