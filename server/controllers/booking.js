@@ -1,6 +1,7 @@
 const Booking = require('../models/booking');
 const Rental = require('../models/rental');
 const { normalizeErrors } = require('../helpers/mongoose');
+const moment = require('moment');
 
 
 exports.createBooking = function(req, res) {
@@ -19,7 +20,28 @@ exports.createBooking = function(req, res) {
     if (foundRental.user.id === user.id) {
       return res.status(422).send({ errors: [{ title: 'Invalid user!', detail: 'Users cannot book their own rentals!' }] });
     }
-
-    return res.json({ booking, foundRental })
+    if (isValidBooking(booking, foundRental)){
+      booking.save();
+      return res.json({ 'created': true })
+    } else {
+      return res.status(422).send({ errors: [{ title: 'Invalid booking!', detail: 'Selected date is already booked.' }] });
+    }
   });
+
+  function isValidBooking(proposedBooking, rental) {
+    if (rental.bookings && rental.bookings.length > 0) {
+      rental.bookings.every(function(booking) {
+        const proposedStart = moment(proposedBooking.startAt);
+        const proposedEnd = moment(proposedBooking.endAt);
+        const actualStart = moment(booking.startAt);
+        const actualEnd = moment(booking.endAt);
+
+        return ((actualStart < proposedStart && actualEnd < proposedStart)
+        || (proposedEnd < actualStart && proposedEnd < actualEnd) )
+      });
+    }
+    return true;
+  } 
+
+
 }
