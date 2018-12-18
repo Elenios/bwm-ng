@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Rental } from '../../shared/rental.model';
+import { Booking } from '../../../booking/shared/booking.model';
 
 @Component({
   selector: 'bwm-rental-detail-booking',
@@ -9,27 +9,38 @@ import { Rental } from '../../shared/rental.model';
 export class RentalDetailBookingComponent implements OnInit {
 
   @Input() price: number;
-  public daterange: any = {};
-  public options: any = {
-      locale: { format: 'YYYY-MM-DD' },
-      alwaysShowCalendars: false,
-      opens: 'left'
+  @Input() bookings: Booking[];
+
+  daterange: any = {};
+  options: any = {
+    locale: { format: 'YYYY-MM-DD' },
+    alwaysShowCalendars: false,
+    opens: 'left'
   };
 
   constructor() { }
 
   ngOnInit() {
+    this.getBookedOutDates();
   }
 
-  public selectedDate(value: any, datepicker?: any) {
-      console.log(value);
+  private getBookedOutDates() {
+    if (this.bookings && this.bookings.length > 0) {
+      this.bookings.forEach((booking: Booking) => {
+        console.log(booking);
+      });
+    }
+  }
 
-      datepicker.start = value.start;
-      datepicker.end = value.end;
+  selectedDate(value: any, datepicker?: any) {
+    console.log(value);
 
-      this.daterange.start = value.start;
-      this.daterange.end = value.end;
-      this.daterange.label = value.label;
+    datepicker.start = value.start;
+    datepicker.end = value.end;
+
+    this.daterange.start = value.start;
+    this.daterange.end = value.end;
+    this.daterange.label = value.label;
   }
 
 }
