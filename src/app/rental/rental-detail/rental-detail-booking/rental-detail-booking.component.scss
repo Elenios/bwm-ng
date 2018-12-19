@@ -53,3 +53,18 @@ p {
 .modal-error {
   margin: 16px;
 }
+
+.daterangepicker {
+  td {
+    &.in-range {
+      background-color: #ffa9a9 !important;
+    }
+    &.active {
+      background-color: $main-color !important;
+      &:hover {
+        background-color: $main-color !important;
+      }
+    }
+  }
+
+}
