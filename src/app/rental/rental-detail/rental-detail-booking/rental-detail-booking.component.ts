@@ -50,6 +50,10 @@ export class RentalDetailBookingComponent implements OnInit {
     this.modalService.open(content);
   }
 
+  createBooking() {
+    console.log(this.newBooking);
+  }
+
   selectedDate(value: any, datepicker?: any) {
     this.newBooking.startAt = this.helper.formatBookingDate(value.start);
     this.newBooking.endAt = this.helper.formatBookingDate(value.end);

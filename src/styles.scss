@@ -21,8 +21,17 @@ html, body, p {
   cursor: pointer;
 }
 
+.btn-bwm {
+  background-color: $main-color;
+  border-color: $main-color;
+  color: white;
+  padding: 15px 30px;
+  font-size: 20px !important;
+}
+
 .bwm-form {
   color: $main-text-color;
+
   form {
     margin-bottom: 10px;
   }
@@ -31,10 +40,12 @@ html, body, p {
       margin: 0;
     }
   }
+
   h1 {
     font-weight: 700;
     margin-bottom: 30px;
   }
+
   .image-container {
     position: relative;
     img {
@@ -42,12 +53,15 @@ html, body, p {
       border-radius: 5px;
     }
   }
+
   label {
     font-size: 12px;
   }
+
   .form-text {
     font-size: 13px;
   }
+
   .catchphrase {
     text-align: center;
     font-size: 42px;
@@ -58,10 +72,4 @@ html, body, p {
     margin-top: 50px;
     letter-spacing: 1px;
   }
-
-  .btn-bwm {
-    color: $light-gray-color;
-    background-color: $main-color;
-  }
-
 }
