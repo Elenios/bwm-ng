@@ -19,7 +19,7 @@ exports.createBooking = function(req, res) {
       return res.status(422).send({ errors: normalizeErrors(err.errors) });
     }
     if (foundRental.user.id === user.id) {
-      return res.status(422).send({ errors: [{ title: 'Invalid user!', detail: 'Users cannot book their own rentals!' }] });
+      return res.status(422).send({ errors: [{ title: 'Invalid user!', detail: 'You cannot book your own rental!' }] });
     }
     if (isValidBooking(booking, foundRental)){
       booking.user = user;

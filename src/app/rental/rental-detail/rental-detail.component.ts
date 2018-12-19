@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RentalService } from '../shared/rental.service';
 import { Rental } from '../shared/rental.model';
+import { Booking } from '../../booking/shared/booking.model';
 
 @Component({
   selector: 'bwm-rental-detail',
@@ -11,6 +12,7 @@ import { Rental } from '../shared/rental.model';
 export class RentalDetailComponent implements OnInit {
 
   rental: Rental;
+  bookings: Booking;
 
   constructor(
     private route: ActivatedRoute,
