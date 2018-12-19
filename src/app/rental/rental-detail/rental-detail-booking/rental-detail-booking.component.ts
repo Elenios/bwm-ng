@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Booking } from '../../../booking/shared/booking.model';
 import { Rental } from '../../shared/rental.model';
 import { HelperService } from '../../../common/service/helper.service';
+import { BookingService } from '../../../booking/shared/booking.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 
@@ -15,9 +16,11 @@ export class RentalDetailBookingComponent implements OnInit {
   @Input() rental: Rental;
 
   newBooking: Booking;
+  modalRef: any;
 
   daterange: any = {};
   bookedDates: any[] = [];
+  errors: any[] = [];
   options: any = {
     locale: { format: Booking.DATE_FORMAT },
     alwaysShowCalendars: false,
@@ -25,7 +28,9 @@ export class RentalDetailBookingComponent implements OnInit {
     isInvalidDate: this.checkForInvalidDates.bind(this)
   };
 
-  constructor(private helper: HelperService, private modalService: NgbModal) { }
+  constructor(private helper: HelperService,
+              private bookingService: BookingService,
+              private modalService: NgbModal) { }
 
   ngOnInit() {
     this.newBooking = new Booking();
@@ -40,18 +45,31 @@ export class RentalDetailBookingComponent implements OnInit {
     const bookings: Booking[] = this.rental.bookings;
     if (bookings && bookings.length > 0) {
       bookings.forEach((booking: Booking) => {
-      const dateRange = this.helper.getBookingRangeOfDates(booking.startAt, booking.endAt);
-      this.bookedDates.push(...dateRange);
+        this.addNewBookedDates(booking);
     });
     }
   }
 
+  private addNewBookedDates(bookingData) {
+    this.bookedDates.push(...this.helper.getBookingRangeOfDates(bookingData.startAt, bookingData.endAt));
+  }
+
   openConfirmModal(content) {
-    this.modalService.open(content);
+    this.errors = [];
+    this.modalRef = this.modalService.open(content);
   }
 
   createBooking() {
-    console.log(this.newBooking);
+    this.newBooking.rental = this.rental;
+    this.bookingService.saveBooking(this.newBooking).subscribe(
+      (bookingData: any) => {
+        this.addNewBookedDates(bookingData);
+        this.newBooking = new Booking();
+        this.modalRef.close();
+      },
+      (errorResponse: any) => {
+        this.errors = errorResponse.error.errors;
+      });
   }
 
   selectedDate(value: any, datepicker?: any) {
