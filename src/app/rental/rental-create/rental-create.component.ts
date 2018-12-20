@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Rental } from '../shared/rental.model';
+import { RentalService } from '../shared/rental.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'bwm-rental-create',
@@ -9,8 +11,14 @@ import { Rental } from '../shared/rental.model';
 export class RentalCreateComponent implements OnInit {
 
   newRental: Rental;
+  rentalCategories = Rental.CATEGORIES;
+  errors: any[] = [];
 
-  constructor() { }
+  constructor(private rentalService: RentalService) { }
+
+  handleImageChange() {
+    this.newRental.image = 'https://ds1.cityrealty.com/img/b57ad835236f5b5bf22e8d096dd14325a56d2d01+736++0+60/432-park-avenue-00.jpg';
+  }
 
   ngOnInit() {
     this.newRental = new Rental();
@@ -18,7 +26,13 @@ export class RentalCreateComponent implements OnInit {
   }
 
   createRental() {
-    console.log(this.newRental);
+    this.rentalService.createRental(this.newRental).subscribe(
+      () => {
+
+      },
+      (errorResponse: HttpErrorResponse) => {
+        this.errors = errorResponse.error.errors;
+      });
   }
 
 }
