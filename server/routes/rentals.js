@@ -23,6 +23,36 @@ router.get('/:id', function(req, res) {
         })
 });
 
+router.delete('/:id', UserCtrl.authMiddleware, function(req, res) {
+  const user = res.locals.user;
+  const rentalId = req.params.id;
+
+    Rental.findById(rentalId)
+          .populate('user', '_id')
+          .populate({
+            path: 'bookings',
+            select: 'startAt',
+            match: { startAt: { $gt: new Date() } }
+          })
+          .exec(function(err, foundRental){
+            if (err) {
+              return res.status(422).send({ errors: normalizeErrors(err.errors) })   
+            }
+            if (user.id !== foundRental.user.id) {
+              return res.status(403).send({ errors: [{ title: 'Invalid user!', detail: 'Rentals can only be deleted by their owners!' }] }); 
+            }
+            if (foundRental.bookings.length > 0) {
+              return res.status(403).send({ errors: [{ title: 'Active bookings were found!', detail: 'Rentals cannot be deleted with active bookings!' }] }); 
+            }
+            foundRental.remove(function(err) {
+              if (err) {
+                return res.status(422).send({ errors: normalizeErrors(err.errors) })   
+              }
+              return res.json ({'status': 'deleted'})        
+            });
+          })
+});
+
 router.get('', function(req, res) {
   const city = req.query.city;
   const query = city ? { city: city.toLowerCase() } : {};
