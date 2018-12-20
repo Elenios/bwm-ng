@@ -4,6 +4,19 @@ const User = require('../models/user');
 const { normalizeErrors } = require('../helpers/mongoose');
 const moment = require('moment');
 
+exports.getUserBookings = function(req, res) {
+  const user = res.locals.user;
+
+  Booking
+    .where({user})
+    .populate('rentals')
+    .exec(function(err, foundBookings){
+      if (err) {
+        return res.status(422).send({ errors: normalizeErrors(err.errors) });
+      }
+      return res.json(foundBookings);
+  });
+}
 
 exports.createBooking = function(req, res) {
   const { startAt, endAt, totalPrice, guest, days, rental } = req.body;
