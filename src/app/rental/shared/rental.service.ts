@@ -10,10 +10,14 @@ export class RentalService {
   }
 
   public getRentalById(rentalId: string): Observable<any> {
-    return this.http.get('/api/v1/rentals/' + rentalId);
+    return this.http.get(`/api/v1/rentals/${rentalId}`);
   }
 
   public getRentals(): Observable<any> {
    return this.http.get('/api/v1/rentals');
   }
+
+  public getRentalsByCity(city: string): Observable<any> {
+    return this.http.get(`/api/v1/rentals/?city=${city}`);
+   }
 }
