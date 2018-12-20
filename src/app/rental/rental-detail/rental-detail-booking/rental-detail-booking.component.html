@@ -1,6 +1,7 @@
 <div class="booking">
     <h3 class="booking-price">${{rental.dailyRate}} <span class="booking-per-night">per night</span></h3>
     <hr>
+    <ng-container *ngIf="auth.isAuthenticated()">
     <form #bookingForm="ngForm">
     <label>Dates</label>
         <input type="text" 
@@ -25,6 +26,11 @@
             [disabled]="!bookingForm.form.valid || !newBooking.startAt || !newBooking.endAt"
             class="btn btn-danger btn-confirm btn-block">Reserve place now</button>
     <hr>
+    </ng-container>
+    <div *ngIf="!auth.isAuthenticated()" class="should-login">
+      <button  class="btn btn-danger btn-confirm btn-block" type="button "routerLink="/login">Login to book this place</button>
+    </div>
+
     <p class="booking-note-title">People are interested into this house</p>
     <p class="booking-note-text">
       More than 500 people checked this rental in last month.
