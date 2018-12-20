@@ -12,6 +12,7 @@ import { RentalListComponent } from './rental-list/rental-list.component';
 import { RentalListItemComponent } from './rental-list-item/rental-list-item.component';
 import { RentalDetailComponent } from './rental-detail/rental-detail.component';
 import { RentalDetailBookingComponent } from './rental-detail/rental-detail-booking/rental-detail-booking.component';
+import { RentalSearchComponent } from './rental-search/rental-search.component';
 
 import { UppercasePipe } from '../common/pipes/uppercase.pipe';
 import { RentalService } from './shared/rental.service';
@@ -37,7 +38,8 @@ const routes: Routes = [{
     RentalListItemComponent,
     RentalDetailComponent,
     UppercasePipe,
-    RentalDetailBookingComponent
+    RentalDetailBookingComponent,
+    RentalSearchComponent
   ],
   imports: [
     CommonModule,
