@@ -72,6 +72,5 @@ exports.createBooking = function(req, res) {
     }
     return isValid;
   } 
-
-
+  
 }
