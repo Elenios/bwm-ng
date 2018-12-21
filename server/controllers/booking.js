@@ -19,9 +19,9 @@ exports.getUserBookings = function(req, res) {
 }
 
 exports.createBooking = function(req, res) {
-  const { startAt, endAt, totalPrice, guest, days, rental } = req.body;
+  const { startAt, endAt, totalPrice, guests, days, rental } = req.body;
   const user = res.locals.user;
-  const booking = new Booking({ startAt, endAt, totalPrice, guest, days, rental });
+  const booking = new Booking({ startAt, endAt, totalPrice, guests, days, rental });
 
   Rental.findById(rental._id)
         .populate('bookings')
@@ -49,7 +49,7 @@ exports.createBooking = function(req, res) {
           { $push: { bookings: booking } },
           function(){}
         );
-        return res.json({ startAt: booking.startAt, endAt: booking.endAt });
+        return res.json({ startAt: booking.startAt, endAt: booking.endAt, guests: booking.guests });
       });
     } else {
       return res.status(422).send({ errors: [{ title: 'Invalid booking!', detail: 'Selected date is already booked.' }] });
@@ -72,6 +72,5 @@ exports.createBooking = function(req, res) {
     }
     return isValid;
   } 
-
-
+  
 }
