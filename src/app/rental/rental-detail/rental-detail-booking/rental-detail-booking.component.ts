@@ -40,7 +40,7 @@ export class RentalDetailBookingComponent implements OnInit {
               private modalService: NgbModal,
               private toastr: ToastsManager,
               private vcr: ViewContainerRef,
-              private auth: AuthService) {
+              public auth: AuthService) {
     this.toastr.setRootViewContainerRef(vcr);
               }
 
