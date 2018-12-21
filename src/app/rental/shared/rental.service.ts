@@ -6,9 +6,7 @@ import { Rental } from './rental.model';
 @Injectable()
 export class RentalService {
 
-  constructor(private http: HttpClient) {
-
-  }
+  constructor(private http: HttpClient) {}
 
   public getRentalById(rentalId: string): Observable<any> {
     return this.http.get(`/api/v1/rentals/${rentalId}`);
@@ -28,6 +26,10 @@ export class RentalService {
 
   public getUserRentals(): Observable<any> {
   return this.http.get('/api/v1/rentals/manage');
+  }
+
+  public deleteRental(rentalId: string): Observable<any> {
+    return this.http.delete(`/api/v1/rentals/${rentalId}`);
   }
 
 }

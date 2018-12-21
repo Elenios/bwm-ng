@@ -21,7 +21,7 @@
                </button>
                <div *ngIf="rentalDeleteIndex === i">
                  <p class="confirm-message">Are you sure you want to delete this rental?</p>
-                <button class="btn btn-success">Yes</button>
+                <button (click)="deleteRental(rental._id)" class="btn btn-success">Yes</button>
                 <button (click)="rentalDeleteIndex = undefined" class="btn btn-danger">No</button>
 
                </div>
