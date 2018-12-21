@@ -8,7 +8,7 @@ export class Booking {
   startAt: string;
   endAt: string;
   totalPrice: number;
-  guest: number;
+  guests: number;
   days: number;
   createdAt: string;
   rental: Rental;
