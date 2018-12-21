@@ -13,7 +13,6 @@ import { RentalModule } from './rental/rental.module';
 import { AuthModule } from './auth/auth.module';
 import { ManageModule } from './manage/manage.modul';
 
-
 const routes: Routes = [
   { path: '', redirectTo: '/rentals', pathMatch: 'full' }
 ];

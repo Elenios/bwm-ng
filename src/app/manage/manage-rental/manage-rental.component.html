@@ -6,9 +6,9 @@
           <div class="card text-center">
             <div class="card-block">
               <h4 class="card-title">{{rental.title}} - {{rental.city | ucwords}}</h4>
-              <button class="btn btn-bwm" routerLink="/rentals/{{rental._id}}">Go to Rental</button>
+              <button class="btn btn-bwm btn-ghost" routerLink="/rentals/{{rental._id}}">Go to Rental</button>
               <span *ngIf="rental.bookings.length > 0">
-                <button class="btn btn-bwm">Show Bookings</button>
+                <bwm-manage-rental-booking></bwm-manage-rental-booking>
               </span>
             </div>
             <div class="card-footer text-muted">

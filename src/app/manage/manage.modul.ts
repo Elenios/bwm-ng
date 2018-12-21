@@ -6,6 +6,7 @@ import { ManageComponent } from './manage.component';
 import { ManageBookingComponent } from './manage-booking/manage-booking.component';
 import { ManageRentalComponent } from './manage-rental/manage-rental.component';
 import { FormatDatePipe } from '../common/pipes/format-date.pipe';
+import { ManageRentalBookingComponent } from './manage-rental/manage-rental-booking/manage-rental-booking.component';
 
 import { RentalService } from '../rental/shared/rental.service';
 import { BookingService } from '../booking/shared/booking.service';
@@ -28,7 +29,8 @@ const routes: Routes = [
     ManageComponent,
     ManageBookingComponent,
     ManageRentalComponent,
-    FormatDatePipe
+    FormatDatePipe,
+    ManageRentalBookingComponent
   ],
   imports: [
     RouterModule.forChild(routes),
