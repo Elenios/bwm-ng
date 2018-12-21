@@ -8,11 +8,11 @@
     </button>
   </div>
   <div class="modal-body">
-    <div *ngFor="let booking of bookings" class="bookings-inner-container">
+    <div *ngFor="let booking of bookings; let i = index" class="bookings-inner-container">
       <p><span>Date:</span> {{booking.startAt | formatDate}} - {{booking.endAt | formatDate}} </p>
       <p><span>Guests:</span> {{booking.guests}}</p>
       <p><span>Total Price:</span> {{booking.totalPrice}} $</p>
-      <hr > <!-- optional: do not display after last element -->
+      <hr *ngIf="bookings.length != i + 1"> <!-- optional: do not display after last element -->
     </div>
   </div>
   <div class="modal-footer">
